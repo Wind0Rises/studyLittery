@@ -1,6 +1,9 @@
 package com.liu.study.littery.collection.lang;
 
+
 import java.lang.reflect.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -9,7 +12,75 @@ import java.util.stream.Stream;
  * @createTime 2020/8/17 14:55
  */
 public class ClassDemo {
-    public static void main(String[] args) throws ClassNotFoundException {
+
+
+    /**
+     * Class:
+     *      1、类型判断：isEnum()、isPrimitive()、isInterface()...
+     *      2、类操作：isAssignable()、getSuperclass()
+     *      3、构造函数：
+     *      4、字段：
+     *      5、方法：getMethods()和getDeclaredMethods()的区别。
+     *      6、注解：
+     *      7、修饰符：
+     *
+     *
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        // firstTest();
+
+        // secondTestIsAssignable();
+
+        castTest();
+    }
+
+    /**
+     * isAssignable()和instanceOf的区别。
+     *      isAssignable()：从类的角度去判断。判断类是否是给定类的父类。 类1.isAssignable(类2) --》 判断类1是否类2的父类。
+     *      instanceOf：从实例的角度判断。 实例 instanceOf 类。
+     */
+    public static void secondTestIsAssignable() {
+
+        boolean assignableFrom = List.class.isAssignableFrom(ArrayList.class);
+        System.out.println(assignableFrom);
+
+        boolean assignableFrom1 = ArrayList.class.isAssignableFrom(List.class);
+        System.out.println(assignableFrom1);
+
+        String li = "";
+        Object object = new Object();
+        System.out.println(li instanceof Object);
+
+    }
+
+    /**
+     * 底层会先判断传入的参数是否为空，并且不是一个接口，
+     * 然后就是强转。
+     */
+    public static void castTest() {
+
+        InterfaceClass cast = InterfaceClass.class.cast(new ClassSuper());
+        System.out.println(cast);
+
+        /**
+         * 不能把父类强转为子类。
+         */
+        ClassObject cast1 = ClassObject.class.cast(new ClassSuper());
+        System.out.println(cast1);
+
+    }
+
+    /**
+     * 类型判断。
+     */
+    public static void typeJudge() {
+
+    }
+
+
+    public static void firstTest() throws Exception {
         Class<?> aClass = Class.forName("com.liu.study.littery.collection.lang.ClassObject");
         System.out.println(aClass);
         System.out.println(aClass.toGenericString());
@@ -20,6 +91,15 @@ public class ClassDemo {
         System.out.println(aClass.isSynthetic());
         System.out.println(aClass.getName());
         System.out.println(aClass.getClassLoader());
+
+        /**
+         * isPrimitive()：判断是否是基础（原始）类型。
+         */
+        System.out.println("-------------------------------");
+        System.out.println(int.class.isPrimitive());
+        System.out.println(boolean.class.isPrimitive());
+        System.out.println(Boolean.TRUE.getClass().isPrimitive());
+        System.out.println("8888888888888888888888888888888888888888888888888888");
 
         /**
          * 获取泛型类型。
@@ -43,7 +123,7 @@ public class ClassDemo {
         System.out.println("interface super class : " + InterfaceClass.class.getSuperclass());
         System.out.println("interface super class : " + InterfaceClass.class.getGenericSuperclass());
         System.out.println("primitive type super class : " + int.class.getSuperclass() + "  --  " +
-                                byte.class.getSuperclass());
+                byte.class.getSuperclass());
 
         System.out.println("-------------------------------------------------------------");
         System.out.println("package is :" + aClass.getPackage());
@@ -90,7 +170,7 @@ public class ClassDemo {
 
         /**
          * 获取这个Class的所有public的method。包含父类的final修饰的public方法。
-         * native方法也会打印出来、会答应父类的final的方法。
+         * native方法也会打印出来、会打印父类的final的方法。
          */
         Method[] methods = aClass.getMethods();
         Stream.of(methods).forEach(System.out::println);
