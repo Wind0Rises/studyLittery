@@ -1,4 +1,4 @@
-package com.liu.study.littery.collection.lang;
+package com.liu.study.littery.collection.lang.clazz;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

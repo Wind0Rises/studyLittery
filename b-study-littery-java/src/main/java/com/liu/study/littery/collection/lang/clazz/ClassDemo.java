@@ -1,4 +1,4 @@
-package com.liu.study.littery.collection.lang;
+package com.liu.study.littery.collection.lang.clazz;
 
 
 import java.lang.reflect.*;
@@ -33,7 +33,15 @@ public class ClassDemo {
 
         // secondTestIsAssignable();
 
-        castTest();
+        // castTest();
+
+        // desiredAssertionStatusTest();
+
+        // classForName();
+
+        // getCanonicalNameTest();
+
+        getClassesTest();
     }
 
     /**
@@ -58,6 +66,8 @@ public class ClassDemo {
     /**
      * 底层会先判断传入的参数是否为空，并且不是一个接口，
      * 然后就是强转。
+     *
+     * 等价(T) object;
      */
     public static void castTest() {
 
@@ -73,6 +83,66 @@ public class ClassDemo {
     }
 
     /**
+     * 【【不明白干啥的】】
+     */
+    public static void desiredAssertionStatusTest() {
+        boolean b = ClassObject.class.desiredAssertionStatus();
+        System.out.println(b);
+    }
+
+    /**
+     *
+     */
+    public static void classForName() throws Exception {
+        /**
+         * class.forName(""):默认初始化类。
+         */
+        /*Class<?> aClass = Class.forName("com.liu.study.littery.collection.lang.clazz.OneObject");
+        System.out.println(aClass);*/
+
+        Class<?> initClass = Class.forName("com.liu.study.littery.collection.lang.clazz.OneObject", false, ClassDemo.class.getClassLoader());
+        System.out.println(initClass);
+    }
+
+    /**
+     * 获取类的全限定名
+     *
+     * 可以比较一下：getName、getSimpleName、getCanonicalName之间的却别，针对内部类、数组等等。
+     */
+    public static void getCanonicalNameTest() {
+        String canonicalName = OneObject.class.getCanonicalName();
+        System.out.println("canonicalName: " + canonicalName);
+        String canonicalName1 = OneObject.InnerClass.class.getCanonicalName();
+        System.out.println("innerCanonicalName:" + canonicalName1);
+    }
+
+    /**
+     * getClasses()：获取该类已经以及父类中的所有public的内部了。
+     * getDeclaredClasses()；获取该类中的所有内部类。包含该类的非public的类。
+     */
+    public static void getClassesTest() {
+        Class<?>[] classes = OneObject.class.getClasses();
+
+        if (classes.length > 0) {
+            Stream.of(classes).forEach(li -> {
+                System.out.println(li.getCanonicalName());
+            });
+        }
+
+        System.out.println("-----------------------------------------------------");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("-----------------------------------------------------");
+
+        Class<?>[] declaredClasses = OneObject.class.getDeclaredClasses();
+
+        if (classes.length > 0) {
+            Stream.of(declaredClasses).forEach(li -> {
+                System.out.println(li.getCanonicalName());
+            });
+        }
+    }
+
+    /**
      * 类型判断。
      */
     public static void typeJudge() {
@@ -81,7 +151,7 @@ public class ClassDemo {
 
 
     public static void firstTest() throws Exception {
-        Class<?> aClass = Class.forName("com.liu.study.littery.collection.lang.ClassObject");
+        Class<?> aClass = Class.forName("com.liu.study.littery.collection.lang.clazz.ClassObject");
         System.out.println(aClass);
         System.out.println(aClass.toGenericString());
         System.out.println(aClass.getModifiers());
