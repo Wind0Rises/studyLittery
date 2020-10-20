@@ -93,6 +93,16 @@ public class BitSetTest {
         System.out.println("xor 结束后");
         System.out.println(basisBitSet1);
         System.out.println(xor);
+
+        System.out.println("\n\n\n");
+        System.out.println("==========================   分割线 其他操作 ===============================");
+        BitSet otherBitSet = new BitSet();
+        otherBitSet.set(23);
+        otherBitSet.set(24);
+        System.out.println(otherBitSet); // 进行补码操作，对应一个bit位来说，就是取反
+        otherBitSet.flip(23);
+        otherBitSet.flip(25);
+        System.out.println(otherBitSet);
     }
 
 }
