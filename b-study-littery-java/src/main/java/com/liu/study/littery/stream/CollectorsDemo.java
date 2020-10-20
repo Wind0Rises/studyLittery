@@ -29,19 +29,20 @@ public class CollectorsDemo {
      * finisher()：
      */
     public static void main(String[] args) {
-        // basisMethod();
+        basisMethod();
 
         collectorsApi();
     }
 
     public static void basisMethod() {
-        ArrayList<Integer> collect = Stream.of("1", "2", "3", "4").collect(() -> {
-            ArrayList<Integer> strings = new ArrayList<>();
-            return strings;
+        ArrayList<Integer> collect = Stream.of("1", "2", "3", "4", "3").collect(() -> {
+            ArrayList<Integer> createCollection = new ArrayList<>();
+            System.out.println("第一步创建的集合：" + createCollection.hashCode());
+            return createCollection;
         }, (first, item) -> {
+            System.out.println("第二步传入的：" + first.hashCode());
             first.add(Integer.valueOf(item));
             System.out.println("---------  " + item);
-
         }, (item, liu) -> {
             System.out.println("8888888888" + item);
             System.out.println("8888888888  " + liu);
@@ -54,63 +55,68 @@ public class CollectorsDemo {
 
         /**
          * stream.collect() 的本质由三个参数构成,
-         * 1. Supplier 生产者, 返回最终结果
+         * 1. Supplier生产者：返回最终结果
          * 2. BiConsumer<R, ? super T> accumulator 累加器第一个参数是要返回的集合, 第二个参数是遍历过程中的每个元素,
          *    将流中每个被遍历的元素添加到集合中
          * 3. BiConsumer<R, R> combiner 合并器, 在有并行流的时候才会有用, 一个流时代码不会走到这里 将第二步遍历得到的
          *    所有流形成的list都添加到最终的list中, 最后返回list1
          */
+        System.out.println("\n\n\n");
+        System.out.println("========================================    详解   ==========================================");
         Stream<String> stream = Stream.of("hello", "world", "helloworld");
         List<String> listDetail = stream.collect(
                 () -> {
                     ArrayList<String> arrayList = new ArrayList<>();
-                    System.out.println("第一个list诞生, size: " + arrayList.size());
+                    System.out.println("第一步list诞生, size: " + arrayList.size());
                     return arrayList;
                 },
                 (theList, item) -> {
-                    System.out.println("第二个list的size: " + theList.size());
                     theList.add(item);
+                    System.out.println("第二步把元素添加到第一步产生的结果中：" +  theList);
                 },
                 (list1, list2) -> {
-                    System.out.println("第三个list1的size: " + list1.size());
-                    System.out.println("第四个list2的size: " + list2.size());
-                    list1.addAll(list2);
+                    System.out.println("第三步，不会进入");
                 }
         );
         System.out.println(listDetail);
 
 
-        System.out.println("#############################################################");
+        System.out.println("\n\n\n");
+        System.out.println("=====================================    PARALLEL      ===========================================");
         Map<String, List<String>> collect2 = Stream.of("1", "2", "3", "4").collect(() -> {
-            Map<String, List<String>> listMap = new HashMap<>();
-            return listMap;
-        }, (first, item) -> {
+            Map<String, List<String>> firstStepCollection = new HashMap<>(10);
+            return firstStepCollection;
+        }, (firstStepCollection, item) -> {
             if (Integer.valueOf(item) > 2) {
-                List<String> da = Optional.ofNullable(first.get("da")).orElse(new ArrayList<>());
+                List<String> da = Optional.ofNullable(firstStepCollection.get("da")).orElse(new ArrayList<>());
                 da.add(item);
-                first.put("da", da);
+                firstStepCollection.put("da", da);
             } else {
-                List<String> xiao = Optional.ofNullable(first.get("xiao")).orElse(new ArrayList<>());
+                List<String> xiao = Optional.ofNullable(firstStepCollection.get("xiao")).orElse(new ArrayList<>());
                 xiao.add(item);
-                first.put("xiao", xiao);
+                firstStepCollection.put("xiao", xiao);
             }
-        }, (item, liu) -> {
-            System.out.println("8888888888" + item);
-            System.out.println("8888888888  " + liu);
+        }, (firstCollection, secondCollection) -> {
+            System.out.println("------  这里不会被执行 ------");
         });
         System.out.println(collect2);
 
 
-        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111");
+        System.out.println("\n\n\n");
+        System.out.println("=====================================    PARALLEL      ===========================================");
+        /**
+         * 第一步：创建Collection。
+         * 第二步：把Stream中的数据，添加到第一步创建的Collection中。
+         * 第三步：只用使用了parallel()时，才会调用，操作两个集合。
+         */
         ArrayList<Integer> collect3 = Stream.of("1", "2", "3", "4", "5", "6").parallel().collect(() -> {
             ArrayList<Integer> strings = new ArrayList<>();
             return strings;
         }, (first, item) -> {
             first.add(Integer.valueOf(item));
             System.out.println("---------  " + item);
-
         }, (list1, list2) -> {
-            System.out.println("list1 ： " + list1 + "  ;list2 ：" + list2);
+            System.out.println("list1：" + list1 + " ; list2：" + list2);
             list1.addAll(list2);
         });
         System.out.println(collect3);
@@ -122,7 +128,6 @@ public class CollectorsDemo {
          */
         Double collect = Stream.of("1", "2", "3", "4", "5").collect(Collectors.averagingDouble(item -> Integer.valueOf(item)));
         System.out.println(collect);
-
 
         /**
          * 合并元素。
