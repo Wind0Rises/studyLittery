@@ -1,6 +1,5 @@
-package com.liu.study.littery;
+package com.liu.study.littery.stream;
 
-import com.google.common.base.Joiner;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

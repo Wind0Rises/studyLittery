@@ -1,4 +1,4 @@
-package com.liu.study.littery;
+package com.liu.study.littery.stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
