@@ -17,4 +17,11 @@ public class Student {
 
     private String like;
 
+    @Data
+    static class InnerClass {
+
+        private String username;
+
+    }
+
 }

@@ -29,9 +29,11 @@ public class CollectorsDemo {
      * finisher()：
      */
     public static void main(String[] args) {
-        basisMethod();
+        // basisMethod();
 
-        collectorsApi();
+        // collectorsApi();
+        Map<String, List<String>> collect4 = Stream.of("1", "2", "3", "4", "5", "3").collect(Collectors.groupingBy(item -> item + "_"));
+        System.out.println(collect4);
     }
 
     public static void basisMethod() {

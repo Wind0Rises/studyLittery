@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,6 +18,17 @@ import java.util.stream.Stream;
 public class StreamTest {
 
     public static void main(String[] args) {
+        Student.InnerClass innerClass = new Student.InnerClass();
+        System.out.println(innerClass);
+
+        firstTest();
+
+        secondTest();
+    }
+    /**
+     *
+     */
+    public static void firstTest() {
         Stream<String> stream3 = Stream.generate(() -> "love").limit(12);
         stream3.forEach(System.out::println);
 
@@ -30,7 +42,7 @@ public class StreamTest {
         String[] tests = new String[]{"liuweian", "aesewesss"};
 
         List<String> collect = Stream.of(tests).flatMap(item -> Stream.of(item.split("")))
-                                    .collect(Collectors.toList());
+                .collect(Collectors.toList());
 
         System.out.println(collect);
 
@@ -38,11 +50,21 @@ public class StreamTest {
         String reduce1 = Stream.of(tests).reduce("start:", (s, j) -> s.concat(j));
     }
 
+    /**
+     *
+     */
+    public static void secondTest() {
+        /**
+         * Stream底层是使用StreamSupport进行实现的：
+         */
+        Stream.of(Arrays.asList("li", "wei"));
+    }
+
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     class StreamObject{
-
         private String username;
 
     }
