@@ -1,6 +1,5 @@
 package com.liu.study.littery.collection;
 
-import com.sun.deploy.ui.DialogTemplate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,13 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentMap;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -32,6 +25,10 @@ public class CollectorsDemo {
      * accumulator():将新元素添加到返回容器中。
      * combiner():将两个容器合并成一个。
      * finisher()：
+     *
+     *  <note>
+     *      所有带concurrent都是进行并行操作的，并行操作就要放弃顺序性。
+     * </note>
      */
     public static void main(String[] args) {
         // 01、基础方法。
@@ -340,7 +337,24 @@ public class CollectorsDemo {
 
         Map<Boolean, Set<String>> collect1 = list.stream().collect(Collectors.partitioningBy(item -> item.equals("3"), Collectors.toSet()));
         System.out.println(collect1);
+
+        /**
+         * groupingByConcurrent():进行并行处理。
+         * 这是一个并发、无需的
+         */
+        Map<Boolean, Set<String>> collect2 = list.stream().collect(Collectors.groupingByConcurrent(item -> item.equals("3"), Collectors.toSet()));
+        System.out.println(collect2);
     }
+
+    /**
+     *
+     */
+    public void testMapping() {
+        List<String> list = Arrays.asList("1", "2", "3", "4", "3", "4");
+        List<String> collect = list.stream().collect(Collectors.mapping(item -> item + "2222", Collectors.toList()));
+        System.out.println(collect);
+    }
+
 
     /**
      * Function
