@@ -64,7 +64,13 @@ public class CollectorsDemo {
         /**
          * 分类：只能分为两类，一个是true、一个是false。
          */
-        testPartitioningBy();
+        // testPartitioningBy();
+
+
+        /**
+         *
+         */
+        testMapping();
 
     }
 
@@ -347,9 +353,9 @@ public class CollectorsDemo {
     }
 
     /**
-     *
+     * 和Stream.map()类似。返回一个新的对象，并收集。
      */
-    public void testMapping() {
+    public static void testMapping() {
         List<String> list = Arrays.asList("1", "2", "3", "4", "3", "4");
         List<String> collect = list.stream().collect(Collectors.mapping(item -> item + "2222", Collectors.toList()));
         System.out.println(collect);
