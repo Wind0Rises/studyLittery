@@ -52,6 +52,7 @@
         <module>a-study-littery-basis</module>
         <module>b-study-littery-java</module>
         <module>c-study-littery-bitset</module>
+        <module>e-study-java-reflect</module>
     </modules>
 
     <build>
