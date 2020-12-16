@@ -2,10 +2,13 @@ package com.liu.study.reflect;
 
 import com.liu.study.reflect.annotation.CustomAnnotation;
 import com.liu.study.reflect.annotation.CustomAnnotationChildAnnotation;
+import com.liu.study.reflect.annotation.CustomChildStudentAnnotation;
 import com.liu.study.reflect.model.ChildFirstStudent;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Class学习。
@@ -22,8 +25,21 @@ public class StudyClass {
      *     子类：ChildFirstStudent（CustomChildStudentAnnotation）
      *     子类：ChildSecondStudent（CustomChildStudentAnnotation、）
      */
-    public static void main(String[] args) {
-        testClassAnnotation();
+    public static void main(String[] args) throws Exception {
+        /**
+         * annotation相关的方法。
+         */
+        // testClassAnnotation();
+
+        /**
+         * method相关的方法
+         */
+        // testMethod();
+
+        /**
+         *
+         */
+        testField();
     }
 
 
@@ -42,20 +58,18 @@ public class StudyClass {
         System.out.println("\n\n");
 
         /**
-         * getAnnotatedInterfaces()：干啥的？？TODO:
+         * getDeclaredAnnotations()获取本类的所有注解。
+         * <note>
+         *     getAnnotations()和getDeclaredAnnotations()
+         *          getAnnotations()：获取本类及其父类的。
+         *          getDeclareAnnotations()：仅仅获取本来的注解。
+         * </note>
          */
-        AnnotatedType[] annotatedInterfaces = ChildFirstStudent.class.getAnnotatedInterfaces();
-        for (AnnotatedType item : annotatedInterfaces) {
-            System.out.println("getAnnotatedInterfaces()获取的AnnotationType：  " + item);
+        Annotation[] declaredAnnotations = ChildFirstStudent.class.getDeclaredAnnotations();
+        for (Annotation item : declaredAnnotations) {
+            System.out.println("getDeclaredAnnotations()获取的值：" + item.toString());
         }
-        System.out.println("\n\n");
 
-        /**
-         * getAnnotatedSuperclass()：干啥的？？TODO:
-         */
-        AnnotatedType annotatedSuperclass = ChildFirstStudent.class.getAnnotatedSuperclass();
-        System.out.println("getAnnotatedSuperclass()获取的AnnotationType：  " + annotatedSuperclass);
-        System.out.println("\n\n");
 
 
 
@@ -85,9 +99,25 @@ public class StudyClass {
 
 
 
+        /**
+         * getAnnotatedInterfaces()：干啥的？？TODO:
+         */
+        AnnotatedType[] annotatedInterfaces = ChildFirstStudent.class.getAnnotatedInterfaces();
+        for (AnnotatedType item : annotatedInterfaces) {
+            System.out.println("getAnnotatedInterfaces()获取的AnnotationType：  " + item);
+        }
+        System.out.println("\n\n");
 
         /**
-         * TODO：不理解继承。
+         * getAnnotatedSuperclass()：干啥的？？TODO:
+         */
+        AnnotatedType annotatedSuperclass = ChildFirstStudent.class.getAnnotatedSuperclass();
+        System.out.println("getAnnotatedSuperclass()获取的AnnotationType：  " + annotatedSuperclass);
+        System.out.println("\n\n");
+
+
+        /**
+         * TODO：
          */
         CustomAnnotationChildAnnotation[] annotationsByType = ChildFirstStudent.class.getAnnotationsByType(CustomAnnotationChildAnnotation.class);
         for (CustomAnnotationChildAnnotation item : annotationsByType) {
@@ -96,6 +126,101 @@ public class StudyClass {
         System.out.println("\n\n");
 
 
+        /**
+         * isAnnotation()：是否是注解。
+         */
+        boolean isAnnotation = ChildFirstStudent.class.isAnnotation();
+        System.out.println("isAnnotation()：" + isAnnotation);
+
+        /**
+         * 判断CustomAnnotationChildAnnotation这个注解是否在ChildFirstStudent上使用过。
+         */
+        boolean annotationPresent = ChildFirstStudent.class.isAnnotationPresent(CustomChildStudentAnnotation.class);
+        System.out.println("isAnnotationPresent()获取的值为：" + annotationPresent);
+
+    }
+
+
+    /**
+     *
+     */
+    public static void testMethod() throws Exception {
+        /**
+         * getMethod()：只能被public修饰的方法。本类/父类都会获取到，静态方法也可以获取到。
+         */
+        Method[] methods = ChildFirstStudent.class.getMethods();
+        for (Method item : methods) {
+            System.out.println("getMethods(): " + item.getName());
+        }
+        System.out.println();
+
+
+        /**
+         * getDeclaredMethods()：只能获取本类的方法，但是所有修饰符修饰的方法都是可以获取到的。静态方法也可以获取到。
+         */
+        Method[] declaredMethods = ChildFirstStudent.class.getDeclaredMethods();
+        for (Method item : declaredMethods) {
+            System.out.println("getDeclared()：" + item.getName());
+        }
+        System.out.println();
+
+        /**
+         * getMethod()；获取给定名称、给定参数的方法。如果没有获取到直接抛错。
+         * <note>
+         *     只能获取到public修饰的方法。
+         * </note>
+         */
+        Method overloadTest1 = ChildFirstStudent.class.getMethod("overloadTest", String.class);
+        System.out.println("getMethod()" + overloadTest1);
+        Method overloadTest2 = ChildFirstStudent.class.getMethod("overloadTest", String.class, Integer.class);
+        System.out.println("getMethod()" + overloadTest2);
+        System.out.println();
+        try {
+            Method privateTest1 = ChildFirstStudent.class.getMethod("privateTest", String.class);
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+
+
+
+        /**
+         *  <note>
+         *      只能获取本类的方法，不管是用什么修饰符修饰的。
+         *  </note>
+         */
+        Method privateTest = ChildFirstStudent.class.getDeclaredMethod("privateTest", String.class);
+        System.out.println("getDeclaredMethod()：" + privateTest.getName());
+
+    }
+
+    /**
+     *
+     */
+    public static void testField() throws Exception {
+        /**
+         * fields()：可以获取本类以及父类的public修饰的字段。
+         */
+        Field[] fields = ChildFirstStudent.class.getFields();
+        for (Field item : fields) {
+            System.out.println(item.getName());
+        }
+        System.out.println();
+
+        Field[] declaredFields = ChildFirstStudent.class.getDeclaredFields();
+        for (Field item : declaredFields) {
+            System.out.println("declaredFields()：" + item.getName());
+        }
+
+        /**
+         * <note>
+         *      找不到方法会报错。
+         * </note>
+         */
+        try {
+            Field getDeclaredField = ChildFirstStudent.class.getDeclaredField("lisn");
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
     }
 
 }
