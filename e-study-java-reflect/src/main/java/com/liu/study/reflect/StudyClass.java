@@ -223,4 +223,22 @@ public class StudyClass {
         }
     }
 
+    /**
+     * 类型校验。
+     */
+    public static void judgeType() {
+
+    }
+
+
+    public static void test() {
+        // ChildFirstStudent.class.cast();
+        ChildFirstStudent.class.desiredAssertionStatus();
+        // ChildFirstStudent.class.asSubclass()
+        // ChildFirstStudent.class.asSubclass()
+        // ChildFirstStudent.class.getCanonicalName();
+        // ChildFirstStudent.class.getComponentType();
+        // ChildFirstStudent.class.
+    }
+
 }

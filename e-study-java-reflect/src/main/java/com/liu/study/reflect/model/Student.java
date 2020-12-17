@@ -1,6 +1,8 @@
 package com.liu.study.reflect.model;
 
 import com.liu.study.reflect.annotation.CustomAnnotation;
+import com.liu.study.reflect.annotation.MethodAnnotation;
+import com.liu.study.reflect.annotation.ParameterAnnotation;
 import lombok.Data;
 
 /**
@@ -10,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @CustomAnnotation(value = "this is CustomAnnotation Annotation of Student")
-public class Student {
+public class Student extends SuperStudent {
 
     private String username;
 
@@ -23,7 +25,9 @@ public class Student {
         System.out.println("查询Username");
     }
 
-    public int totalStudentAge(String username) {
+    @MethodAnnotation("this is totalStudentAge Method")
+    @Override
+    public int totalStudentAge(@ParameterAnnotation("this is parameter of totalStudentAge method") String username) {
         System.out.println("统计学生年龄");
         return 10;
     }
