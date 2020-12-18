@@ -18,8 +18,20 @@ public class ListTest {
     private static List<String> conList = new ArrayList<>(Arrays.asList("lll", "zhang", "wang", "we"));
 
     public static void main(String[] args) {
+        /**
+         *
+         */
         // firstTest();
-        collectionsListTest();
+
+        /**
+         *
+         */
+        // collectionsListTest();
+
+        /**
+         * 交并集。
+         */
+        listUniqueAndIntersection();
     }
 
     public static void firstTest() {
@@ -31,6 +43,9 @@ public class ListTest {
         System.out.println(conList);
     }
 
+    /**
+     *
+     */
     public static void collectionsListTest() {
         System.out.println(testList);
 
@@ -42,6 +57,43 @@ public class ListTest {
 
         Collections.shuffle(testList);
         System.out.println(testList);
+    }
+
+    /**
+     * 集合的交并集操作。
+     */
+    public static void listUniqueAndIntersection() {
+        List<String> basisList = new ArrayList<String>(){{
+            add("liu");
+            add("liu");
+            add("liu");
+            add("wei");
+            add("an");
+            add("------------");
+        }};
+
+        List<String> compare = new ArrayList<String>(){{
+            add("liu");
+            add("liu");
+            add("an");
+            add("zhan");
+        }};
+
+        /**
+         * 判断compare集合中的元素是否都包含在basisList中。
+         */
+        boolean b = basisList.containsAll(compare);
+        System.out.println(b);
+
+
+        /**
+         * 保留basisList中包含compare的元素信息。
+         */
+        boolean processResult = basisList.retainAll(compare);
+        if (processResult) {
+            System.out.println(basisList);
+        }
+
 
     }
 
