@@ -22,7 +22,7 @@ public class ArrayBlockingQueueDemo {
         /**
          * 添加元素。
          */
-        // addElementToQueue();
+        addElementToQueue();
 
         /**
          * 获取但是不删除元素。
@@ -32,13 +32,15 @@ public class ArrayBlockingQueueDemo {
         /**
          * 获取并删除元素。
          */
-        getAndDeleteElement();
+        // getAndDeleteElement();
     }
 
     /**
      * 向队列中添加元素。
      * <note>
-     *     add、offer、put的区别。
+     *     add：向满队列添加元素，直接报错。
+     *     offer：返回一个boolean值，成功就返回true，失败就返回false。
+     *     put：向一个满队列中添加元素，会堵塞直到队列中有空位置。
      * </note>
      */
     private static void addElementToQueue() {
@@ -50,7 +52,7 @@ public class ArrayBlockingQueueDemo {
         try {
             fullQueue.add("12");
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println("add向一个满队列：" + e);
         }
         System.out.println();
 
@@ -80,7 +82,8 @@ public class ArrayBlockingQueueDemo {
      * 获取并不删除元素。
      *
      * <note>
-     *     peek、
+     *     peek：对空队列直接返回null。
+     *     element：对空队列直接报错：NoSuchElementException
      * </note>
      *
      */
@@ -105,6 +108,11 @@ public class ArrayBlockingQueueDemo {
 
     /**
      * 获取并删除元素。
+     * <note>
+     *     remove：对空队列会报错。
+     *     take：对于空队列会一直等待，直到有元素或者InterruptedException
+     *     poll：如果是一个空队列，直接返回null。
+     * </note>
      */
     public static void getAndDeleteElement() {
         System.out.println("remove操作前的数据：" + testQueue);
@@ -130,6 +138,12 @@ public class ArrayBlockingQueueDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void arrayBlockingQueueOtherMethod() {
+        // testQueue.drainTo()
+        // testQueue.removeIf()
+        // testQueue.containsAll()
     }
 
 }
