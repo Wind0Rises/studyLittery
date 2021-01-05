@@ -7,6 +7,12 @@ import java.math.RoundingMode;
  *
  * 学习RoundingMode。
  *
+ * <note>
+ *     up和ceiling的区别；
+ *     down和floor的区别：
+ *     half_up、half_down、half_even的区别。
+ * </note>
+ *
  * @author lwa
  * @version 1.0.0
  * @createTime 2021/1/5 13:38
