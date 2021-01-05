@@ -38,7 +38,7 @@ public class StudyMethod {
         /**
          *
          */
-        // stest(totalStudentAgeMethod);
+        // test(totalStudentAgeMethod);
 
         /**
          * 方法参数相关的。
@@ -125,6 +125,24 @@ public class StudyMethod {
          */
         int parameterCount = totalStudentAgeMethod.getParameterCount();
         System.out.println("getParameterCount()：" + parameterCount);
+
+        /**
+         * 获取参数上的注解
+         */
+        Annotation[][] parameterAnnotations = totalStudentAgeMethod.getParameterAnnotations();
+        for (Annotation[] item : parameterAnnotations) {
+            for (Annotation annotation : item) {
+                System.out.println(annotation.getClass());
+            }
+        }
+
+        /**
+         *
+         */
+        Class<?>[] parameterTypes = totalStudentAgeMethod.getParameterTypes();
+        for (Class item : parameterTypes) {
+            System.out.println(item);
+        }
     }
 
 }
