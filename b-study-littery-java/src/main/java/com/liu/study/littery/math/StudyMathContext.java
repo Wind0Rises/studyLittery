@@ -6,7 +6,9 @@ import java.math.RoundingMode;
 
 /**
  *
- * 学习MathContext
+ * 学习MathContext。
+ *
+ * MathContext：保存精度、舍入模式的一个对象，注意该类是被final修饰的。
  *
  * @author lwa
  * @version 1.0.0
@@ -19,10 +21,20 @@ public class StudyMathContext {
     }
 
     /**
-     *
+     * 如何创建MathContext。
      */
     public static void createObject() {
-        MathContext mathContext = new MathContext("precision=1 roundingMode=2");
+        /**
+         * precision：精度；
+         * roundingMode：舍入模式；
+         */
+        MathContext mathContext1 = new MathContext("precision=1 roundingMode=CEILING");
+
+        /**
+         * 方法二、
+         */
+        MathContext mathContext2 = new MathContext(2, RoundingMode.HALF_DOWN);
+
     }
 
     /**

@@ -26,9 +26,9 @@ public class StudyRoundingMode {
          *      DOWN：向下取整（负数特别），等于BigDecimal的ROUND_DOWN。如果是负数，取绝对值进行向下取整，然后把负号加上去。
          *      CEILING：向上取整，等于BigDecimal的ROUND_CEILING。
          *      FLOOR：向下取整，等于BigDecimal的ROUND_FLOOR。
-         *      HALF_UP：无符号四舍五入，然后再把正负号加上去。等于BigDecimal的ROUND_HALF_UP
-         *      HALF_DOWN：
-         *      HALF_EVEN：
+         *      HALF_UP：无符号四舍五入，然后再把正负号加上去。等于BigDecimal的ROUND_HALF_UP，如果刚好到上下两变一样大，向上取整。
+         *      HALF_DOWN：无符号四舍五入，然后再把正负号加上去。等于BigDecimal的ROUND_HALF_UP，如果刚好到上下两变一样大，向下取整。
+         *      HALF_EVEN：无符号四舍五入，然后再把正负号加上去。等于BigDecimal的ROUND_HALF_UP，如果刚好到上下两变一样大，需要看舍弃位前一位，前一个是奇数，则加1；如果是偶数，则减1
          *      UNNECESSARY：
          */
 
@@ -69,6 +69,7 @@ public class StudyRoundingMode {
          *
          */
         halfEven();
+
     }
 
     /**
