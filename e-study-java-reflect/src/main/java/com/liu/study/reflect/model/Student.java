@@ -14,6 +14,8 @@ import lombok.Data;
 @CustomAnnotation(value = "this is CustomAnnotation Annotation of Student")
 public class Student extends SuperStudent {
 
+    public String superPublicFiled;
+
     private String username;
 
     private int age;
