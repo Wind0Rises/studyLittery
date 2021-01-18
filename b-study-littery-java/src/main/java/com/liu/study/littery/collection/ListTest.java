@@ -94,7 +94,6 @@ public class ListTest {
             System.out.println(basisList);
         }
 
-
     }
 
 }
