@@ -45,7 +45,7 @@ public class CollectorsDemo {
         /**
          *
          */
-        // testGroupingBy();
+         // testGroupingBy();
 
         /**
          * reduce：归纳；
@@ -54,7 +54,7 @@ public class CollectorsDemo {
          *          BinaryOperator<T> op        // BinaryOperator的第一个参数就是T，第二个参数，就是每次遍历的元素。
          *     )
          */
-        // testReducing();
+         testReducing();
 
         /**
          *
@@ -70,7 +70,7 @@ public class CollectorsDemo {
         /**
          *
          */
-        testMapping();
+        // testMapping();
 
     }
 
@@ -174,8 +174,6 @@ public class CollectorsDemo {
          */
         String collect1 = Stream.of("1", "2", "3", "4", "5").collect(Collectors.joining());
         System.out.println(collect1);
-
-
         String collect2 = Stream.of("1", "2", "3", "4", "5").collect(Collectors.joining("-"));
         System.out.println(collect2);
 
@@ -300,6 +298,7 @@ public class CollectorsDemo {
          */
         Object collect = list.stream().collect(Collectors.reducing(new TestDataReducing(null, 0), (first, second) -> {
             System.out.println("first：" + first.hashCode() + ",  second：" + second.hashCode());
+            System.out.println("first对象：" + first + ",,,,second：" + second);
             return first;
         }));
         System.out.println("#########################################");
@@ -360,7 +359,6 @@ public class CollectorsDemo {
         List<String> collect = list.stream().collect(Collectors.mapping(item -> item + "2222", Collectors.toList()));
         System.out.println(collect);
     }
-
 
     /**
      * Function
