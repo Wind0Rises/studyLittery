@@ -1,10 +1,10 @@
 package com.liu.study.littery.stream;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * Stream原理学习。
+ *
  * @author lwa
  * @version 1.0.0
  * @createTime 2020/10/22 13:20
