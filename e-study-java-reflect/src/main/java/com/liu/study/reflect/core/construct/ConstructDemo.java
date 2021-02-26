@@ -13,6 +13,11 @@ public class ConstructDemo {
         newInstanceTest();
     }
 
+    /**
+     * 通过Construct进行反射创建对象，静态代码块、非静态代码块、无参构造函数都会被调用。
+     *
+     * @throws Exception
+     */
     public static void newInstanceTest() throws Exception {
         Constructor<ConstructObject> constructor = ConstructObject.class.getConstructor();
         ConstructObject constructObject = constructor.newInstance();
